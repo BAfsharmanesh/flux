@@ -49,7 +49,7 @@
 #if defined(CUDA_VERSION) && CUDA_VERSION >= 12080
 #include <cuda/atomic>
 #else
-#include <cuda/std/atomic>
+#include <cuda/atomic>
 #endif
 #include "ag_scatter_grouped_problem_visitor.hpp"
 

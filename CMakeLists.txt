@@ -17,6 +17,8 @@ message("NVShmem Support: ${ENABLE_NVSHMEM}")
 # find cuda
 # specify cuda path if other than default
 # set(CUDA_TOOLKIT_ROOT_DIR /path/to/installed/cuda)
+set(CUDA_TOOLKIT_ROOT_DIR /home/ba64326/miniconda3/envs/flux/targets/x86_64-linux)
+set(CUDA_INCLUDE_DIRS "${CUDA_TOOLKIT_ROOT_DIR}/include")
 find_package(CUDAToolkit REQUIRED)
 
 message(STATUS "CUDAToolkit_VERSION: ${CUDAToolkit_VERSION}")
@@ -25,9 +27,9 @@ if(CUDAToolkit_VERSION VERSION_LESS "11.0")
 elseif(CUDAToolkit_VERSION VERSION_LESS "12.0")
   set(CUDAARCHS "80" CACHE STRING "CUDA Architectures")
 elseif(CUDAToolkit_VERSION VERSION_GREATER_EQUAL "12.4")
-  set(CUDAARCHS "80;89;90" CACHE STRING "CUDA Architectures")
+  set(CUDAARCHS "80;86;89;90" CACHE STRING "CUDA Architectures")
 else()
-  set(CUDAARCHS "80;90" CACHE STRING "CUDA Architectures")
+  set(CUDAARCHS "80;86;90" CACHE STRING "CUDA Architectures")
 endif()
 
 set(CMAKE_CUDA_ARCHITECTURES ${CUDAARCHS})
@@ -83,6 +85,8 @@ if(BUILD_THS)
   foreach(ARCH ${CMAKE_CUDA_ARCHITECTURES})
     if(ARCH STREQUAL "80")
 	    list(APPEND TORCH_CUDA_ARCH_LIST "8.0")
+    elseif(ARCH STREQUAL "86")
+	    list(APPEND TORCH_CUDA_ARCH_LIST "8.6")    
     elseif(ARCH STREQUAL "89")
       list(APPEND TORCH_CUDA_ARCH_LIST "8.9")
     elseif(ARCH STREQUAL "90")
@@ -144,6 +148,9 @@ set(COMMON_HEADER_DIRS
   ${PROJECT_SOURCE_DIR}/include
   ${CUDAToolkit_INCLUDE_DIRS}
   ${CMAKE_CURRENT_BINARY_DIR}
+  /home/ba64326/miniconda3/envs/flux/targets/x86_64-linux/include/ # new
+  /home/ba64326/miniconda3/envs/flux/include/ # new
+  ${PROJECT_SOURCE_DIR}/3rdparty/nccl/build/include # new  
   ${PROJECT_SOURCE_DIR}/3rdparty/cutlass/include
   ${PROJECT_SOURCE_DIR}/3rdparty/cutlass/tools/util/include
   ${PROJECT_SOURCE_DIR}/3rdparty/cutlass/tools/library/include

@@ -55,6 +55,16 @@ class GemmOnly::GemmOnlyImpl {
   auto
   get_gemm_meta(bool has_bias, bool fast_accum) {
     auto arch = get_arch();
+    
+    if ((int)arch == 86) {
+      // print a warning for sm86, since it is not supported yet
+      // then change the arch to sm80
+      std::cout << "Warning: GemmOnly, sm86 -> sm80, not supported yet"
+                << std::endl;
+      arch = _Sm80{};
+    }
+    
+    
     auto input_dtype = from_torch_dtype(this->input_dtype);
     auto output_dtype = from_torch_dtype(this->output_dtype);
     DataTypeEnum accum_type = use_s8_gemm ? _S32{}() : _FP32{}();

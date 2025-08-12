@@ -145,9 +145,19 @@ class GemmRS::GemmRSImpl {
 #endif
   void
   init_output_buffer() {
+
+    ArchEnum arch = get_arch();
+
+    if ((int)arch == 86) {
+      // print a warning for sm86, since it is not supported yet
+      // then change the arch to sm80
+      std::cout << "Warning: GemmRS.get_gemm_meta(), sm86 -> sm80, not supported yet"
+                << std::endl;
+      arch = _Sm80{};
+    }
     // update max_m and allocate buffer
-    if (get_arch() == _Sm90{} || no_nvlink || (get_arch() == _Sm80{} && nnodes > 1)) {
-      int reduce_m_dim = (get_arch() == _Sm90{} && fuse_reduction)
+    if (arch == _Sm90{} || no_nvlink || (arch == _Sm80{} && nnodes > 1)) {
+      int reduce_m_dim = (arch == _Sm90{} && fuse_reduction)
                              ? (max_m + world_size - 1) / world_size * nnodes * nnodes
                              : max_m;
       this->reduce_buffers =
@@ -174,7 +184,7 @@ class GemmRS::GemmRSImpl {
         }
       }
     }
-    if (get_arch() == _Sm80{} && nnodes > 1 && from_torch_dtype(this->input_dtype) == _BF16{}) {
+    if (arch == _Sm80{} && nnodes > 1 && from_torch_dtype(this->input_dtype) == _BF16{}) {
       // SM80 does not support the fuse reduction for the bfloat16 data type
       // we have to use the float32 global_red instruction when SM80 && nnodes>1 && input_type=bf16
       // Therefore, in this case, here double the size of the output_buffer.
@@ -420,6 +430,16 @@ class GemmRS::GemmRSImpl {
   auto
   get_gemm_meta(bool has_bias, bool fast_accum = false) {
     ArchEnum arch = get_arch();
+    
+    if ((int)arch == 86) {
+      // print a warning for sm86, since it is not supported yet
+      // then change the arch to sm80
+      std::cout << "Warning: GemmRS.get_gemm_meta(), sm86 -> sm80, not supported yet"
+                << std::endl;
+      arch = _Sm80{};
+    }
+    
+
     auto gemm_layout = transpose_weight ? _RRR{}() : _RCR{}();
     auto input_dtype = from_torch_dtype(this->input_dtype);
     auto output_dtype = from_torch_dtype(this->output_dtype);

@@ -141,7 +141,12 @@ def flux_cuda_deps():
 def cuda_deps():
     cuda_home = Path(os.environ.get("CUDA_HOME", "/usr/local/cuda"))
     include_dirs = [cuda_home / "include"]
-    library_dirs = [cuda_home / "lib64", cuda_home / "lib64/stubs"]
+    library_dirs = [cuda_home / "lib64", 
+                    cuda_home / "lib", 
+                    cuda_home / "targets/x86_64-linux/lib",
+                    cuda_home / "lib64/stubs",
+                    cuda_home / "lib/stubs",
+                    cuda_home / "targets/x86_64-linux/lib/stubs",]
     libraries = ["cuda", "cudart", "nvidia-ml"]
     return include_dirs, library_dirs, libraries
 

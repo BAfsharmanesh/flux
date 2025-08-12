@@ -461,7 +461,7 @@ tuple_has_elem(cute::tuple<Ts...> const &tup, Elem const &e) {
 // Enum classes
 /////////////////////////////////////////////////////
 enum class DataTypeEnum : int8_t { Void, FP16, BF16, FP32, E4M3, E5M2, S8, S32 };
-enum class ArchEnum : int { Sm80 = 80, Sm89 = 89, Sm90 = 90 };
+enum class ArchEnum : int { Sm80 = 80, Sm86 = 86, Sm89 = 89, Sm90 = 90 };
 enum class CommOpEnum : int8_t {
   CommNone,                   // gemm only, wo/ communication
   AllGather,                  // tp allgather + gemm, comm not fused into gemm kernel
