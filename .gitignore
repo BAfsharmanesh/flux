@@ -1,3 +1,5 @@
+.vscode
+
 # PyCache files
 build/
 .cache/
