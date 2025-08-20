@@ -51,7 +51,7 @@ execute_process(
 
 add_subdirectory(comm_none)
 add_subdirectory(coll)
-add_subdirectory(ag_gemm)
+# add_subdirectory(ag_gemm)
 add_subdirectory(gemm_rs)
 # if(ENABLE_NVSHMEM)
 #   add_subdirectory(moe_ag_scatter)

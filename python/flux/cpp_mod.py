@@ -73,13 +73,13 @@ load_tuning_record = flux_mod.load_tuning_record
 create_tensor_list = flux_mod.flux_create_tensor_list
 GroupBarrier = flux_mod.GroupBarrier
 
-calc_scatter_index = _get_flux_member("calc_scatter_index")
+# calc_scatter_index = _get_flux_member("calc_scatter_index")
 
 ProfilingContext = flux_mod.ProfilingContext
 TuningRecord = flux_mod.TuningRecord
 DistEnvTP = flux_mod.DistEnvTP
 DistEnvTPWithEP = flux_mod.DistEnvTPWithEP
-MoeArguments = flux_mod.MoeArguments
+# MoeArguments = flux_mod.MoeArguments
 
 # GEMM only
 GemmOnly = _get_flux_member("GemmOnly")
@@ -121,14 +121,14 @@ AGKernel = _get_flux_member("AGKernel")
 AGKernelCrossNode = _get_flux_member("AGKernelCrossNode")
 
 # MOE ag-scatter
-GemmGroupedV2AGScatterOp = _get_flux_member("GemmGroupedV2AGScatterOp")
-GemmGroupedV3AGScatter = _get_flux_member("GemmGroupedV3AGScatter")
-prepare_moe_ag_scatter_args = _get_flux_member("prepare_moe_ag_scatter_args")
+# GemmGroupedV2AGScatterOp = _get_flux_member("GemmGroupedV2AGScatterOp")
+# GemmGroupedV3AGScatter = _get_flux_member("GemmGroupedV3AGScatter")
+# prepare_moe_ag_scatter_args = _get_flux_member("prepare_moe_ag_scatter_args")
 
 # MOE gather-rs
-GemmGroupedV2GatherRSOp = _get_flux_member("GemmGroupedV2GatherRSOp")
-TopkReduceScatterOp = _get_flux_member("TopkReduceScatterOp")
-GemmGroupedV3GatherRS = _get_flux_member("GemmGroupedV3GatherRS")
+# GemmGroupedV2GatherRSOp = _get_flux_member("GemmGroupedV2GatherRSOp")
+# TopkReduceScatterOp = _get_flux_member("TopkReduceScatterOp")
+# GemmGroupedV3GatherRS = _get_flux_member("GemmGroupedV3GatherRS")
 topk_scatter_reduce = _get_flux_member("topk_scatter_reduce")
 All2AllOp = _get_flux_member("All2AllOp")
 
@@ -145,7 +145,7 @@ __all__ = [
     "ProfilingContext",
     "DistEnvTP",
     "DistEnvTPWithEP",
-    "MoeArguments",
+    # "MoeArguments",
     "ReduceScatterOption",
     "RingMode",
     "GemmRS",
@@ -157,16 +157,16 @@ __all__ = [
     "BlockScaleGemm",
     "GemmGroupedV2",
     "GemmGroupedV3",
-    "GemmGroupedV3AGScatter",
-    "GemmGroupedV3GatherRS",
-    "GemmGroupedV2AGScatterOp",
-    "prepare_moe_ag_scatter_args",
-    "GemmGroupedV2GatherRSOp",
-    "TopkReduceScatterOp",
+    # "GemmGroupedV3AGScatter",
+    # "GemmGroupedV3GatherRS",
+    # "GemmGroupedV2AGScatterOp",
+    # "prepare_moe_ag_scatter_args",
+    # "GemmGroupedV2GatherRSOp",
+    # "TopkReduceScatterOp",
     "AGRingMode",
     "AllGatherOption",
     "AllGatherOp",
     "get_gemm_rs_threadblock_segments_info",
     "calc_gemm_rs_threadblock_segments_info",
-    "calc_scatter_index",
+    # "calc_scatter_index",
 ]

@@ -18,10 +18,10 @@
 #include "flux/ths_op/ths_op.h"
 #include "flux/ths_op/flux_shm.h"
 #include "flux/ths_op/ths_pybind.h"
-#include "coll/ths_op/all_gather_types.h"
+// #include "coll/ths_op/all_gather_types.h"
 #include "coll/ths_op/reduce_scatter_op.h"
 #include <c10/cuda/CUDAStream.h>
-#include "flux/cuda/moe_utils.h"
+// #include "flux/cuda/moe_utils.h"
 
 namespace bytedance::flux::ths_op {
 
@@ -46,24 +46,24 @@ ThsOpsInitRegistry::initialize_all(py::module &m) const {
   }
 }
 
-torch::Tensor
-calc_scatter_index_impl(
-    const torch::Tensor choosed_experts,  // topk * ntokens
-    const torch::Tensor splits            // of expert_num
-) {
-  CHECK_INPUT(choosed_experts, at::ScalarType::Int);
-  CHECK_INPUT(splits, at::ScalarType::Int);
-  torch::Tensor scatter_index = at::empty_like(choosed_experts);
-  auto stream = at::cuda::getCurrentCUDAStream();
-  calc_scatter_index(
-      choosed_experts.data_ptr<int>(),
-      splits.data_ptr<int>(),
-      scatter_index.data_ptr<int>(),
-      choosed_experts.numel(),
-      splits.numel(),
-      stream);
-  return scatter_index;
-}
+// torch::Tensor
+// calc_scatter_index_impl(
+//     const torch::Tensor choosed_experts,  // topk * ntokens
+//     const torch::Tensor splits            // of expert_num
+// ) {
+//   CHECK_INPUT(choosed_experts, at::ScalarType::Int);
+//   CHECK_INPUT(splits, at::ScalarType::Int);
+//   torch::Tensor scatter_index = at::empty_like(choosed_experts);
+//   auto stream = at::cuda::getCurrentCUDAStream();
+//   calc_scatter_index(
+//       choosed_experts.data_ptr<int>(),
+//       splits.data_ptr<int>(),
+//       scatter_index.data_ptr<int>(),
+//       choosed_experts.numel(),
+//       splits.numel(),
+//       stream);
+//   return scatter_index;
+// }
 
 void
 init_profiling_context(py::module &m) {
@@ -108,47 +108,47 @@ init_dist_env_tp_with_ep(py::module &m) {
       .def("__repr__", &DistEnvTPWithEP::toString);
 }
 
-void
-init_moe_arguments(py::module &m) {
-  py::class_<MoeArguments, c10::intrusive_ptr<MoeArguments>>(m, "MoeArguments")
-      .def(
-          py::init([](int32_t max_ntokens,
-                      int32_t hidden,
-                      int32_t ffn_hidden,
-                      int32_t nexperts,
-                      int32_t topk,
-                      torch::ScalarType input_dtype,
-                      py::object py_output_dtype) {
-            auto output_dtype = py_output_dtype.is(py::none())
-                                    ? input_dtype
-                                    : torch::python::detail::py_object_to_dtype(py_output_dtype);
-            return new MoeArguments(
-                max_ntokens, hidden, ffn_hidden, nexperts, topk, input_dtype, output_dtype);
-          }),
-          py::arg("max_ntokens"),
-          py::arg("hidden"),
-          py::arg("ffn_hidden"),
-          py::arg("nexperts"),
-          py::arg("topk"),
-          py::arg("input_dtype"),
-          py::arg("output_dtype") = py::none());
-}
+// void
+// init_moe_arguments(py::module &m) {
+//   py::class_<MoeArguments, c10::intrusive_ptr<MoeArguments>>(m, "MoeArguments")
+//       .def(
+//           py::init([](int32_t max_ntokens,
+//                       int32_t hidden,
+//                       int32_t ffn_hidden,
+//                       int32_t nexperts,
+//                       int32_t topk,
+//                       torch::ScalarType input_dtype,
+//                       py::object py_output_dtype) {
+//             auto output_dtype = py_output_dtype.is(py::none())
+//                                     ? input_dtype
+//                                     : torch::python::detail::py_object_to_dtype(py_output_dtype);
+//             return new MoeArguments(
+//                 max_ntokens, hidden, ffn_hidden, nexperts, topk, input_dtype, output_dtype);
+//           }),
+//           py::arg("max_ntokens"),
+//           py::arg("hidden"),
+//           py::arg("ffn_hidden"),
+//           py::arg("nexperts"),
+//           py::arg("topk"),
+//           py::arg("input_dtype"),
+//           py::arg("output_dtype") = py::none());
+// }
 
 void
 init_coll_arguments(py::module &m) {
-  py::enum_<AGRingMode>(m, "AGRingMode", py::arithmetic())
-      .value("All2All", AGRingMode::All2All)
-      .value("Ring1D", AGRingMode::Ring1D)
-      .value("Ring2D", AGRingMode::Ring2D);
-  py::class_<AllGatherOptionWithOptional>(m, "AllGatherOption")
-      .def(py::init([]() { return new AllGatherOptionWithOptional(); }))
-      .def_readwrite("input_buffer_copied", &AllGatherOptionWithOptional::input_buffer_copied)
-      .def_readwrite("use_read", &AllGatherOptionWithOptional::use_read)
-      .def_readwrite("mode", &AllGatherOptionWithOptional::mode)
-      .def_readwrite("fuse_sync", &AllGatherOptionWithOptional::fuse_sync)
-      .def_readwrite("use_cuda_core_local", &AllGatherOptionWithOptional::use_cuda_core_local)
-      .def_readwrite("use_cuda_core_ag", &AllGatherOptionWithOptional::use_cuda_core_ag);
-  m.def("get_default_ag_ring_mode", []() -> AGRingMode { return get_default_ag_ring_mode(); });
+  // py::enum_<AGRingMode>(m, "AGRingMode", py::arithmetic())
+  //     .value("All2All", AGRingMode::All2All)
+  //     .value("Ring1D", AGRingMode::Ring1D)
+  //     .value("Ring2D", AGRingMode::Ring2D);
+  // py::class_<AllGatherOptionWithOptional>(m, "AllGatherOption")
+  //     .def(py::init([]() { return new AllGatherOptionWithOptional(); }))
+  //     .def_readwrite("input_buffer_copied", &AllGatherOptionWithOptional::input_buffer_copied)
+  //     .def_readwrite("use_read", &AllGatherOptionWithOptional::use_read)
+  //     .def_readwrite("mode", &AllGatherOptionWithOptional::mode)
+  //     .def_readwrite("fuse_sync", &AllGatherOptionWithOptional::fuse_sync)
+  //     .def_readwrite("use_cuda_core_local", &AllGatherOptionWithOptional::use_cuda_core_local)
+  //     .def_readwrite("use_cuda_core_ag", &AllGatherOptionWithOptional::use_cuda_core_ag);
+  // m.def("get_default_ag_ring_mode", []() -> AGRingMode { return get_default_ag_ring_mode(); });
 
   py::enum_<RingMode>(m, "RingMode", py::arithmetic())
       .value("All2All", RingMode::All2All)
@@ -199,17 +199,17 @@ PYBIND11_MODULE(FLUX_TORCH_EXTENSION_NAME, m) {
         self.barrier_all((cudaStream_t)stream);
       });
 
-  m.def(
-      "calc_scatter_index",
-      &calc_scatter_index_impl,
-      py::arg("choosed_experts"),
-      py::arg("splits"));
+  // m.def(
+  //     "calc_scatter_index",
+  //     &calc_scatter_index_impl,
+  //     py::arg("choosed_experts"),
+  //     py::arg("splits"));
 
   init_tuning_record(m);
   init_profiling_context(m);
   init_dist_env_tp(m);
   init_dist_env_tp_with_ep(m);
-  init_moe_arguments(m);
+  // init_moe_arguments(m);
   init_coll_arguments(m);
 
   // Initialize ops in registry

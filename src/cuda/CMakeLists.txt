@@ -19,7 +19,7 @@ set(LIB_FILES
   cuda_common.cu
   cuda_stub.cc
   nvml_stub.cc
-  moe_utils.cu
+  # moe_utils.cu
 )
 
 set(_VER_FILE ${CMAKE_CURRENT_SOURCE_DIR}/version.ld)

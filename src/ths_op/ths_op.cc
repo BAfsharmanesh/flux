@@ -17,7 +17,7 @@
 
 #include "flux/ths_op/ths_op.h"
 #include "flux/cuda/cuda_common.h"
-#include "flux/cuda/moe_utils.h"
+// #include "flux/cuda/moe_utils.h"
 #include "flux/flux.h"
 #include "flux/gemm_hparams.h"
 #include "flux/gemm_meta.h"
@@ -345,21 +345,21 @@ DistEnvTPWithEP::toString() const {
   return std::move(ss).str();
 }
 
-MoeArguments::MoeArguments(
-    int32_t max_ntokens,
-    int32_t hidden,
-    int32_t ffn_hidden,
-    int32_t nexperts,
-    int32_t topk,
-    c10::ScalarType input_dtype,
-    c10::ScalarType output_dtype)
-    : max_ntokens(max_ntokens),
-      hidden(hidden),
-      ffn_hidden(ffn_hidden),
-      nexperts(nexperts),
-      topk(topk),
-      input_dtype(input_dtype),
-      output_dtype(output_dtype) {}
+// MoeArguments::MoeArguments(
+//     int32_t max_ntokens,
+//     int32_t hidden,
+//     int32_t ffn_hidden,
+//     int32_t nexperts,
+//     int32_t topk,
+//     c10::ScalarType input_dtype,
+//     c10::ScalarType output_dtype)
+//     : max_ntokens(max_ntokens),
+//       hidden(hidden),
+//       ffn_hidden(ffn_hidden),
+//       nexperts(nexperts),
+//       topk(topk),
+//       input_dtype(input_dtype),
+//       output_dtype(output_dtype) {}
 
 void
 lazy_init_buffer_tensor(torch::Tensor *tensor, int64_t buffer_size) {

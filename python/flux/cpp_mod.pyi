@@ -161,16 +161,16 @@ class DistEnvTPWithEP:
         tp_group: dist.ProcessGroup, nnodes: int, ep_group: Optional[dist.ProcessGroup] = None
     ) -> None: ...
 
-class MoeArguments:
-    def __init__(
-        max_ntokens: int,
-        hidden: int,
-        ffn_hidden: int,
-        nexperts: int,
-        topk: int,
-        input_dtype=torch.dtype,
-        output_dtype: Optional[torch.dtype] = None,
-    ) -> None: ...
+# class MoeArguments:
+#     def __init__(
+#         max_ntokens: int,
+#         hidden: int,
+#         ffn_hidden: int,
+#         nexperts: int,
+#         topk: int,
+#         input_dtype=torch.dtype,
+#         output_dtype: Optional[torch.dtype] = None,
+#     ) -> None: ...
 
 class GemmOnly:
     """
@@ -488,269 +488,269 @@ class GemmGroupedV3:
         self, input: torch.Tensor, splits_cpu: torch.Tensor, prof_ctx: ProfilingContext = None
     ) -> torch.Tensor: ...
 
-class GemmGroupedV3AGScatter:
-    def __init__(self, tp_env: DistEnvTP, moe_args: MoeArguments): ...
-    def forward(
-        self,
-        inputs_shard: torch.Tensor,
-        weights: torch.Tensor,
-        splits_gpu: torch.Tensor,
-        scatter_index: torch.Tensor,
-        output_scale: Optional[torch.Tensor] = None,
-        outputs_buf: Optional[torch.Tensor] = None,
-        allgather_output: Optional[torch.Tensor] = None,
-        fast_accum: bool = False,
-        sm_margin: int = 0,
-    ) -> torch.Tensor: ...
-    def forward_multiple_weights(
-        self,
-        inputs_shard: torch.Tensor,
-        weights: List[torch.Tensor],
-        splits_gpu: torch.Tensor,
-        scatter_index: torch.Tensor,
-        output_scale: Optional[List[torch.Tensor]] = None,
-        outputs_buf: Optional[List[torch.Tensor]] = None,
-        allgather_output: Optional[torch.Tensor] = None,
-        fast_accum: bool = False,
-        sm_margin: int = 0,
-    ) -> List[torch.Tensor]: ...
-    def clear_buffers(self) -> None: ...
-    def profiling(
-        self,
-        inputs_shard: torch.Tensor,
-        weights: List[torch.Tensor],
-        splits_gpu: torch.Tensor,
-        scatter_index: torch.Tensor,
-        output_scale: Optional[List[torch.Tensor]] = None,
-        outputs_buf: Optional[List[torch.Tensor]] = None,
-        allgather_output: Optional[torch.Tensor] = None,
-        fast_accum: bool = False,
-        sm_margin: int = 0,
-        prof_ctx: Optional[ProfilingContext] = None,
-    ) -> List[torch.Tensor]: ...
+# class GemmGroupedV3AGScatter:
+#     def __init__(self, tp_env: DistEnvTP, moe_args: MoeArguments): ...
+#     def forward(
+#         self,
+#         inputs_shard: torch.Tensor,
+#         weights: torch.Tensor,
+#         splits_gpu: torch.Tensor,
+#         scatter_index: torch.Tensor,
+#         output_scale: Optional[torch.Tensor] = None,
+#         outputs_buf: Optional[torch.Tensor] = None,
+#         allgather_output: Optional[torch.Tensor] = None,
+#         fast_accum: bool = False,
+#         sm_margin: int = 0,
+#     ) -> torch.Tensor: ...
+    # def forward_multiple_weights(
+    #     self,
+    #     inputs_shard: torch.Tensor,
+    #     weights: List[torch.Tensor],
+    #     splits_gpu: torch.Tensor,
+    #     scatter_index: torch.Tensor,
+    #     output_scale: Optional[List[torch.Tensor]] = None,
+    #     outputs_buf: Optional[List[torch.Tensor]] = None,
+    #     allgather_output: Optional[torch.Tensor] = None,
+    #     fast_accum: bool = False,
+    #     sm_margin: int = 0,
+    # ) -> List[torch.Tensor]: ...
+    # def clear_buffers(self) -> None: ...
+    # def profiling(
+    #     self,
+    #     inputs_shard: torch.Tensor,
+    #     weights: List[torch.Tensor],
+    #     splits_gpu: torch.Tensor,
+    #     scatter_index: torch.Tensor,
+    #     output_scale: Optional[List[torch.Tensor]] = None,
+    #     outputs_buf: Optional[List[torch.Tensor]] = None,
+    #     allgather_output: Optional[torch.Tensor] = None,
+    #     fast_accum: bool = False,
+    #     sm_margin: int = 0,
+    #     prof_ctx: Optional[ProfilingContext] = None,
+    # ) -> List[torch.Tensor]: ...
 
-class GemmGroupedV2AGScatterOp:
-    def __init__(
-        self,
-        tp_env: DistEnvTP,
-        moe_args: MoeArguments,
-    ): ...
-    def forward(
-        self,
-        inputs_shard: torch.Tensor,
-        weights: torch.Tensor,
-        splits_gpu: torch.Tensor,
-        scatter_index: torch.Tensor,
-        input_scale: Optional[torch.Tensor] = None,
-        weight_scale: Optional[torch.Tensor] = None,
-        output_scale: Optional[torch.Tensor] = None,
-        outputs_buf: Optional[torch.Tensor] = None,
-        allgather_output: Optional[torch.Tensor] = None,
-        fast_accum: bool = False,
-        sm_margin: int = 0,
-        ag_option: AllGatherOption = AllGatherOption(),
-    ) -> torch.Tensor: ...
-    """
-    2 modes supported: FP16/BF16, or FP8 mode.  INT8 is not supported yet.
+# class GemmGroupedV2AGScatterOp:
+#     def __init__(
+#         self,
+#         tp_env: DistEnvTP,
+#         moe_args: MoeArguments,
+#     ): ...
+#     def forward(
+#         self,
+#         inputs_shard: torch.Tensor,
+#         weights: torch.Tensor,
+#         splits_gpu: torch.Tensor,
+#         scatter_index: torch.Tensor,
+#         input_scale: Optional[torch.Tensor] = None,
+#         weight_scale: Optional[torch.Tensor] = None,
+#         output_scale: Optional[torch.Tensor] = None,
+#         outputs_buf: Optional[torch.Tensor] = None,
+#         allgather_output: Optional[torch.Tensor] = None,
+#         fast_accum: bool = False,
+#         sm_margin: int = 0,
+#         ag_option: AllGatherOption = AllGatherOption(),
+#     ) -> torch.Tensor: ...
+#     """
+#     2 modes supported: FP16/BF16, or FP8 mode.  INT8 is not supported yet.
 
-    About some variables:
-        * ntokens = tokens_per_rank * world_size.
-        * M = ntokens * topk.
-        * sum(M_this_ep) = M. for EP=1, M_this_ep = M.
+#     About some variables:
+#         * ntokens = tokens_per_rank * world_size.
+#         * M = ntokens * topk.
+#         * sum(M_this_ep) = M. for EP=1, M_this_ep = M.
 
-    About shapes:
-    * inputs_shard: [M_this_ep, K] for all types
-    * weights: [E, K, N] if transpose_weight, [E, N, K] if not transpose_weight.
-    * splits_gpu: [E] of torch.int32 by default or [E+1] if drop_token. for EP=1, M_this_rank = M * topk.
-    * scatter_index: [ntokens, topk] of torch.int32
-    * output_scale: [E] of torch.float32
-    * output_buf: [M_this_ep, N].
-    * allgather_output: [ntokens, K] of the same dtype as inputs_shard
+#     About shapes:
+#     * inputs_shard: [M_this_ep, K] for all types
+#     * weights: [E, K, N] if transpose_weight, [E, N, K] if not transpose_weight.
+#     * splits_gpu: [E] of torch.int32 by default or [E+1] if drop_token. for EP=1, M_this_rank = M * topk.
+#     * scatter_index: [ntokens, topk] of torch.int32
+#     * output_scale: [E] of torch.float32
+#     * output_buf: [M_this_ep, N].
+#     * allgather_output: [ntokens, K] of the same dtype as inputs_shard
 
-    input_{T} = index_select(all_gather(inputs_shard_{T}), dim=0, index=gather_index)  for T in [FP16,BF16,FP8]
-    for FP16 mode: output_FP16 = [input_FP16 * weights_FP16]_FP32.to(FP16)
-    for BF16 mode: output_BF16 = [input_BF16 * weights_BF16]_FP32.to(BF16)
-    for FP8  mode: output_BF16 = [[input_FP8 * weights_FP8]_FP32 * output_scale_FP32]_FP32.to(BF16)
+#     input_{T} = index_select(all_gather(inputs_shard_{T}), dim=0, index=gather_index)  for T in [FP16,BF16,FP8]
+#     for FP16 mode: output_FP16 = [input_FP16 * weights_FP16]_FP32.to(FP16)
+#     for BF16 mode: output_BF16 = [input_BF16 * weights_BF16]_FP32.to(BF16)
+#     for FP8  mode: output_BF16 = [[input_FP8 * weights_FP8]_FP32 * output_scale_FP32]_FP32.to(BF16)
 
-    """
+#     """
 
-    def forward_multiple_weights(
-        self,
-        inputs_shard: torch.Tensor,
-        weights: List[torch.Tensor],
-        splits_gpu: torch.Tensor,
-        scatter_index: torch.Tensor,
-        input_scale: Optional[List[torch.Tensor]] = None,
-        weight_scale: Optional[List[torch.Tensor]] = None,
-        output_scale: Optional[List[torch.Tensor]] = None,
-        outputs_buf: Optional[List[torch.Tensor]] = None,
-        allgather_output: Optional[torch.Tensor] = None,
-        fast_accum: bool = False,
-        sm_margin: int = 0,
-        ag_option: AllGatherOption = AllGatherOption(),
-    ) -> List[torch.Tensor]: ...
-    def clear_buffers(self) -> None: ...
-    def profiling(
-        self,
-        inputs_shard: torch.Tensor,
-        weights: List[torch.Tensor],
-        splits_gpu: torch.Tensor,
-        scatter_index: torch.Tensor,
-        input_scale: Optional[List[torch.Tensor]] = None,
-        weight_scale: Optional[List[torch.Tensor]] = None,
-        output_scale: Optional[List[torch.Tensor]] = None,
-        outputs_buf: Optional[List[torch.Tensor]] = None,
-        allgather_output: Optional[torch.Tensor] = None,
-        fast_accum: bool = False,
-        sm_margin: int = 0,
-        ag_option: AllGatherOption = AllGatherOption(),
-        prof_ctx: Optional[ProfilingContext] = None,
-    ) -> List[torch.Tensor]: ...
+#     def forward_multiple_weights(
+#         self,
+#         inputs_shard: torch.Tensor,
+#         weights: List[torch.Tensor],
+#         splits_gpu: torch.Tensor,
+#         scatter_index: torch.Tensor,
+#         input_scale: Optional[List[torch.Tensor]] = None,
+#         weight_scale: Optional[List[torch.Tensor]] = None,
+#         output_scale: Optional[List[torch.Tensor]] = None,
+#         outputs_buf: Optional[List[torch.Tensor]] = None,
+#         allgather_output: Optional[torch.Tensor] = None,
+#         fast_accum: bool = False,
+#         sm_margin: int = 0,
+#         ag_option: AllGatherOption = AllGatherOption(),
+#     ) -> List[torch.Tensor]: ...
+#     def clear_buffers(self) -> None: ...
+#     def profiling(
+#         self,
+#         inputs_shard: torch.Tensor,
+#         weights: List[torch.Tensor],
+#         splits_gpu: torch.Tensor,
+#         scatter_index: torch.Tensor,
+#         input_scale: Optional[List[torch.Tensor]] = None,
+#         weight_scale: Optional[List[torch.Tensor]] = None,
+#         output_scale: Optional[List[torch.Tensor]] = None,
+#         outputs_buf: Optional[List[torch.Tensor]] = None,
+#         allgather_output: Optional[torch.Tensor] = None,
+#         fast_accum: bool = False,
+#         sm_margin: int = 0,
+#         ag_option: AllGatherOption = AllGatherOption(),
+#         prof_ctx: Optional[ProfilingContext] = None,
+#     ) -> List[torch.Tensor]: ...
 
-class GemmGroupedV3GatherRS:
-    def __init__(
-        self,
-        num_experts: int,
-        max_m: int,
-        n_dim: int,
-        topk: int,
-        rank: int,
-        world_size: int,
-        tp_world_size: int,
-        ep_world_size: int,
-    ): ...
-    def forward_gather_rs(
-        self,
-        input: torch.Tensor,
-        weight: torch.Tensor,
-        split_cpu: torch.Tensor,
-        scatter_idx: torch.Tensor,
-        input_scale: Optional[torch.Tensor] = None,
-        weight_scale: Optional[torch.Tensor] = None,
-        output_scale: Optional[torch.Tensor] = None,
-        fastacc: bool = True,
-        sm_margin: int = 0,
-        with_stream_sync: bool = False,
-    ) -> torch.Tensor: ...
-    def forward_gather_rs_multiple(
-        self,
-        input: List[torch.Tensor],
-        weight: List[torch.Tensor],
-        split_cpu: torch.Tensor,
-        scatter_idx: torch.Tensor,
-        input_scale: Optional[List[torch.Tensor]] = None,
-        weight_scale: Optional[List[torch.Tensor]] = None,
-        output_scale: Optional[List[torch.Tensor]] = None,
-        fastacc: bool = True,
-        sm_margin: int = 0,
-        with_stream_sync: bool = False,
-    ) -> torch.Tensor: ...
+# class GemmGroupedV3GatherRS:
+#     def __init__(
+#         self,
+#         num_experts: int,
+#         max_m: int,
+#         n_dim: int,
+#         topk: int,
+#         rank: int,
+#         world_size: int,
+#         tp_world_size: int,
+#         ep_world_size: int,
+#     ): ...
+#     def forward_gather_rs(
+#         self,
+#         input: torch.Tensor,
+#         weight: torch.Tensor,
+#         split_cpu: torch.Tensor,
+#         scatter_idx: torch.Tensor,
+#         input_scale: Optional[torch.Tensor] = None,
+#         weight_scale: Optional[torch.Tensor] = None,
+#         output_scale: Optional[torch.Tensor] = None,
+#         fastacc: bool = True,
+#         sm_margin: int = 0,
+#         with_stream_sync: bool = False,
+#     ) -> torch.Tensor: ...
+#     def forward_gather_rs_multiple(
+#         self,
+#         input: List[torch.Tensor],
+#         weight: List[torch.Tensor],
+#         split_cpu: torch.Tensor,
+#         scatter_idx: torch.Tensor,
+#         input_scale: Optional[List[torch.Tensor]] = None,
+#         weight_scale: Optional[List[torch.Tensor]] = None,
+#         output_scale: Optional[List[torch.Tensor]] = None,
+#         fastacc: bool = True,
+#         sm_margin: int = 0,
+#         with_stream_sync: bool = False,
+#     ) -> torch.Tensor: ...
 
-class GemmGroupedV2GatherRSOp:
-    def __init__(
-        self,
-        tp_group: dist.ProcessGroup,
-        total_num_experts: int,
-        max_m: int,
-        n_dim: int,
-        topk: int,
-        output_dtype: torch.dtype,
-        tp_world_size: int,
-        ep_world_size: int,
-        max_input_groups: int = 1,
-        n_split: int = 4,
-        do_all_reduce: bool = False,
-        use_read_mode: bool = False,
-    ):
-        """
-        such conditions expected:
-            max_input_groups <= 2
-            tp_world_size * ep_world_size == tp_group.size
-        """
-        ...
+# class GemmGroupedV2GatherRSOp:
+#     def __init__(
+#         self,
+#         tp_group: dist.ProcessGroup,
+#         total_num_experts: int,
+#         max_m: int,
+#         n_dim: int,
+#         topk: int,
+#         output_dtype: torch.dtype,
+#         tp_world_size: int,
+#         ep_world_size: int,
+#         max_input_groups: int = 1,
+#         n_split: int = 4,
+#         do_all_reduce: bool = False,
+#         use_read_mode: bool = False,
+#     ):
+#         """
+#         such conditions expected:
+#             max_input_groups <= 2
+#             tp_world_size * ep_world_size == tp_group.size
+#         """
+#         ...
 
-    def forward_gather_rs(
-        self,
-        input: torch.Tensor,
-        weight: torch.Tensor,
-        splits_cpu: torch.Tensor,
-        scatter_idx: torch.Tensor,
-        bias: Optional[torch.Tensor] = None,
-        input_scale: Optional[torch.Tensor] = None,
-        weight_scale: Optional[torch.Tensor] = None,
-        output_vec_scale: Optional[torch.Tensor] = None,
-        fast_accum: bool = True,
-        sm_margin: int = 0,
-        with_stream_sync: bool = False,  # NOTE: not used. to align with V3
-    ) -> torch.Tensor:
-        """
-        support 3 modes: FP16/BF16 mode, or FP8(FP8E4M3FN/FP8E5M2) mode, or INT8 mode.
+#     def forward_gather_rs(
+#         self,
+#         input: torch.Tensor,
+#         weight: torch.Tensor,
+#         splits_cpu: torch.Tensor,
+#         scatter_idx: torch.Tensor,
+#         bias: Optional[torch.Tensor] = None,
+#         input_scale: Optional[torch.Tensor] = None,
+#         weight_scale: Optional[torch.Tensor] = None,
+#         output_vec_scale: Optional[torch.Tensor] = None,
+#         fast_accum: bool = True,
+#         sm_margin: int = 0,
+#         with_stream_sync: bool = False,  # NOTE: not used. to align with V3
+#     ) -> torch.Tensor:
+#         """
+#         support 3 modes: FP16/BF16 mode, or FP8(FP8E4M3FN/FP8E5M2) mode, or INT8 mode.
 
-        TODO(houqi.1993) INT8 mode is not supported
+#         TODO(houqi.1993) INT8 mode is not supported
 
-        some params:
-        * E_this_ep: sum(E_this_ep) = E. for EP=1, E_this_ep = E.
-        * M_this_ep: sum(M_this_ep) = M. for EP=1, M_this_ep = M = ntokens * topk
+#         some params:
+#         * E_this_ep: sum(E_this_ep) = E. for EP=1, E_this_ep = E.
+#         * M_this_ep: sum(M_this_ep) = M. for EP=1, M_this_ep = M = ntokens * topk
 
-        some shapes:
-        * input: [M_this_ep, K] for all types
-        * weight: [E_this_ep, K, N] if transpose_weight, [E_this_ep, N, K] if not transpose_weight.
-        * bias: [N] for int8
-        * input_scale: [1] for FP16/BF16/FP8, [M_this_ep] for INT8 dynamic quant
-        * weight_scale: [E_this_ep, 1] for FP16/BF16/FP8, [E_this_ep, N] for INT8.
+#         some shapes:
+#         * input: [M_this_ep, K] for all types
+#         * weight: [E_this_ep, K, N] if transpose_weight, [E_this_ep, N, K] if not transpose_weight.
+#         * bias: [N] for int8
+#         * input_scale: [1] for FP16/BF16/FP8, [M_this_ep] for INT8 dynamic quant
+#         * weight_scale: [E_this_ep, 1] for FP16/BF16/FP8, [E_this_ep, N] for INT8.
 
-        for FP16:
-            gemm_out_FP16(m_indexes) =
-                [input(m_indexes(i), :)_FP16 * weight(i, :, :)_FP16]_FP32
-                * input_scale(None, None)_FP32
-                * weight_scale(i, None, None)_FP32
-                * output_scale(m_indexes(i), None)_FP32]_FP32.to(FP16)  . for expert i in E_this_ep.
-            scatter_idx -> gather_index
-            output_FP16 = reduce_scatter(select_index(gemm_out_FP16, gather_index)_FP16)_FP16
-        for BF16: replace FP16 with BF16 and use FP16 formula.
-        for FP8(both FP8E4M3FN or FP8E5M2):
-            gemm_out_BF16(m_indexes) =
-                [input(m_indexes(i), :)_FP8 * weight(i, :, :)_FP8]_FP32
-                * input_scale(None, None)_FP32
-                * weight_scale(i, None, None)_FP32
-                * output_scale(m_indexes(i), None)_FP32]_FP32.to(BF16)  . for expert i in E_this_ep.
-            output_BF16 = reduce_scatter(select_index(gemm_out_BF16, gather_index)_BF16)_BF16
-        for INT8:
-            gemm_out_BF16(m_indexes) =
-                [input(m_indexes(i), :)_INT8 * weight(i, :, :)_INT8]_FP32
-                * weight_scale(i, None, :)_FP32
-                * output_scale(m_indexes(i), None)_FP32]_FP32.to(BF16)
-                 + bias . for expert i in E_this_ep.
-            output_BF16 = reduce_scatter(select_index(gemm_out_BF16, gather_index)_BF16)_BF16
-        """
+#         for FP16:
+#             gemm_out_FP16(m_indexes) =
+#                 [input(m_indexes(i), :)_FP16 * weight(i, :, :)_FP16]_FP32
+#                 * input_scale(None, None)_FP32
+#                 * weight_scale(i, None, None)_FP32
+#                 * output_scale(m_indexes(i), None)_FP32]_FP32.to(FP16)  . for expert i in E_this_ep.
+#             scatter_idx -> gather_index
+#             output_FP16 = reduce_scatter(select_index(gemm_out_FP16, gather_index)_FP16)_FP16
+#         for BF16: replace FP16 with BF16 and use FP16 formula.
+#         for FP8(both FP8E4M3FN or FP8E5M2):
+#             gemm_out_BF16(m_indexes) =
+#                 [input(m_indexes(i), :)_FP8 * weight(i, :, :)_FP8]_FP32
+#                 * input_scale(None, None)_FP32
+#                 * weight_scale(i, None, None)_FP32
+#                 * output_scale(m_indexes(i), None)_FP32]_FP32.to(BF16)  . for expert i in E_this_ep.
+#             output_BF16 = reduce_scatter(select_index(gemm_out_BF16, gather_index)_BF16)_BF16
+#         for INT8:
+#             gemm_out_BF16(m_indexes) =
+#                 [input(m_indexes(i), :)_INT8 * weight(i, :, :)_INT8]_FP32
+#                 * weight_scale(i, None, :)_FP32
+#                 * output_scale(m_indexes(i), None)_FP32]_FP32.to(BF16)
+#                  + bias . for expert i in E_this_ep.
+#             output_BF16 = reduce_scatter(select_index(gemm_out_BF16, gather_index)_BF16)_BF16
+#         """
 
-    def forward_gather_rs_multiple(
-        self,
-        input: List[torch.Tensor],
-        weight: List[torch.Tensor],
-        splits_cpu: torch.Tensor,
-        scatter_idx: torch.Tensor,
-        input_scale: Optional[List[torch.Tensor]] = None,
-        weight_scale: Optional[List[torch.Tensor]] = None,
-        output_vec_scale: Optional[List[torch.Tensor]] = None,
-        fast_accum: bool = True,
-        sm_margin: int = 0,
-        with_stream_sync: bool = False,
-    ) -> torch.Tensor: ...
-    def profiling(
-        self,
-        input: torch.Tensor,
-        weight: torch.Tensor,
-        splits_cpu: torch.Tensor,
-        scatter_idx: torch.Tensor,
-        input_scale: Optional[torch.Tensor] = None,
-        weight_scale: Optional[torch.Tensor] = None,
-        output_vec_scale: Optional[torch.Tensor] = None,
-        fastacc: bool = True,
-        sm_margin: int = 0,
-        with_stream_sync: bool = False,
-        prof_ctx: Optional[ProfilingContext] = None,
-    ) -> torch.Tensor: ...
+#     def forward_gather_rs_multiple(
+#         self,
+#         input: List[torch.Tensor],
+#         weight: List[torch.Tensor],
+#         splits_cpu: torch.Tensor,
+#         scatter_idx: torch.Tensor,
+#         input_scale: Optional[List[torch.Tensor]] = None,
+#         weight_scale: Optional[List[torch.Tensor]] = None,
+#         output_vec_scale: Optional[List[torch.Tensor]] = None,
+#         fast_accum: bool = True,
+#         sm_margin: int = 0,
+#         with_stream_sync: bool = False,
+#     ) -> torch.Tensor: ...
+#     def profiling(
+#         self,
+#         input: torch.Tensor,
+#         weight: torch.Tensor,
+#         splits_cpu: torch.Tensor,
+#         scatter_idx: torch.Tensor,
+#         input_scale: Optional[torch.Tensor] = None,
+#         weight_scale: Optional[torch.Tensor] = None,
+#         output_vec_scale: Optional[torch.Tensor] = None,
+#         fastacc: bool = True,
+#         sm_margin: int = 0,
+#         with_stream_sync: bool = False,
+#         prof_ctx: Optional[ProfilingContext] = None,
+#     ) -> torch.Tensor: ...
 
 class TopkReduceScatterOp:
     def __init__(
@@ -781,27 +781,27 @@ class TopkReduceScatterOp:
     ) -> torch.Tensor: ...
     def reset_buffer(self) -> None: ...
 
-def prepare_moe_ag_scatter_args(
-    splits_gpu: torch.Tensor,
-    scatter_index: torch.Tensor,
-    ntokens: int,
-    topk: int,
-    num_weight_groups: int,
-    ep_start: int,
-    ep_experts: int,
-    rank: int,
-    world_size: int,
-    tile_size_m: int,
-    cp_stream: torch.cuda.Stream,
-) -> Tuple[
-    int,  # M_this_ep, int
-    torch.Tensor,  # M_this_ep_pad, torch.Tensor(int32) on device
-    torch.Tensor,  # gather_A_index
-    torch.Tensor,  # scatter_D_index
-    torch.Tensor,  # expert_index
-    torch.Tensor,  # rank_start_index
-    torch.Tensor,  # rank_end_index
-]: ...
+# def prepare_moe_ag_scatter_args(
+#     splits_gpu: torch.Tensor,
+#     scatter_index: torch.Tensor,
+#     ntokens: int,
+#     topk: int,
+#     num_weight_groups: int,
+#     ep_start: int,
+#     ep_experts: int,
+#     rank: int,
+#     world_size: int,
+#     tile_size_m: int,
+#     cp_stream: torch.cuda.Stream,
+# ) -> Tuple[
+#     int,  # M_this_ep, int
+#     torch.Tensor,  # M_this_ep_pad, torch.Tensor(int32) on device
+#     torch.Tensor,  # gather_A_index
+#     torch.Tensor,  # scatter_D_index
+#     torch.Tensor,  # expert_index
+#     torch.Tensor,  # rank_start_index
+#     torch.Tensor,  # rank_end_index
+# ]: ...
 
 class AllGatherOp:
     def __init__(

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.17)
 set(CU_FILES
-	all_gather_impls.cu
+	# all_gather_impls.cu
 	local_copy_and_reset.cu
 )
 
