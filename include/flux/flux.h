@@ -464,11 +464,11 @@ enum class DataTypeEnum : int8_t { Void, FP16, BF16, FP32, E4M3, E5M2, S8, S32 }
 enum class ArchEnum : int { Sm80 = 80, Sm86 = 86, Sm89 = 89, Sm90 = 90 };
 enum class CommOpEnum : int8_t {
   CommNone,                   // gemm only, wo/ communication
-  AllGather,                  // tp allgather + gemm, comm not fused into gemm kernel
+  // AllGather,                  // tp allgather + gemm, comm not fused into gemm kernel
   ReduceScatter,              // gemm + tp reduce-scatter
-  GatherRS,                   // MoE tp, gemm + gather + rs
+  // GatherRS,                   // MoE tp, gemm + gather + rs
   AGKernel,                   // tp allgather + gemm, comm fused into gemm kernel
-  AGScatter,                  // MoE tp, ag + scatter + gemm
+  // AGScatter,                  // MoE tp, ag + scatter + gemm
 };
 
 enum class GemmLayoutEnum : int8_t { RRR, RCR, RCC };
@@ -486,11 +486,11 @@ enum class GemmKernelScheduleEnum : int8_t { Cooperative, PingPong };
 // Aliases for constant types
 /////////////////////////////////////////////////////
 using _CommNone = cute::C<CommOpEnum::CommNone>;
-using _AllGather = cute::C<CommOpEnum::AllGather>;
+// using _AllGather = cute::C<CommOpEnum::AllGather>;
 using _ReduceScatter = cute::C<CommOpEnum::ReduceScatter>;
-using _GatherRS = cute::C<CommOpEnum::GatherRS>;
-using _AGKernel = cute::C<CommOpEnum::AGKernel>;
-using _AGScatter = cute::C<CommOpEnum::AGScatter>;
+// using _GatherRS = cute::C<CommOpEnum::GatherRS>;
+// using _AGKernel = cute::C<CommOpEnum::AGKernel>;
+// using _AGScatter = cute::C<CommOpEnum::AGScatter>;
 
 using _IntraNode = cute::C<CommKindEnum::IntraNode>;
 using _AcrossNode = cute::C<CommKindEnum::AcrossNode>;
@@ -689,11 +689,11 @@ inline char const *
 enum_to_string(CommOpEnum comm_op) {
   switch (comm_op) {
     case CommOpEnum::CommNone: return "CommNone";
-    case CommOpEnum::AllGather: return "AllGather";
-    case CommOpEnum::AGKernel: return "AGKernel";
+    // case CommOpEnum::AllGather: return "AllGather";
+    // case CommOpEnum::AGKernel: return "AGKernel";
     case CommOpEnum::ReduceScatter: return "ReduceScatter";
-    case CommOpEnum::GatherRS: return "GatherRS";
-    case CommOpEnum::AGScatter: return "AGScatter";
+    // case CommOpEnum::GatherRS: return "GatherRS";
+    // case CommOpEnum::AGScatter: return "AGScatter";
     default: return "UNK";
   }
 }

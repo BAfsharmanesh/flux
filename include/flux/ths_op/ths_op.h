@@ -119,25 +119,25 @@ struct DistEnvTPWithEP : public DistEnv {
   std::string toString() const;
 };
 
-struct MoeArguments : public torch::CustomClassHolder {
-  const int32_t max_ntokens;
-  const int32_t hidden;
-  const int32_t ffn_hidden;
-  const int32_t nexperts;
-  const int32_t topk;
+// struct MoeArguments : public torch::CustomClassHolder {
+//   const int32_t max_ntokens;
+//   const int32_t hidden;
+//   const int32_t ffn_hidden;
+//   const int32_t nexperts;
+//   const int32_t topk;
 
-  const c10::ScalarType input_dtype;
-  const c10::ScalarType output_dtype;
+//   const c10::ScalarType input_dtype;
+//   const c10::ScalarType output_dtype;
 
-  MoeArguments(
-      int32_t max_ntokens,
-      int32_t hidden,
-      int32_t ffn_hidden,
-      int32_t nexperts,
-      int32_t topk,
-      c10::ScalarType input_dtype,
-      c10::ScalarType output_dtype);
-};
+//   MoeArguments(
+//       int32_t max_ntokens,
+//       int32_t hidden,
+//       int32_t ffn_hidden,
+//       int32_t nexperts,
+//       int32_t topk,
+//       c10::ScalarType input_dtype,
+//       c10::ScalarType output_dtype);
+// };
 
 /** torch::empty filled with uninitialized data but not if torch.use_deterministic_algorithms() and
   torch.utils.deterministic.fill_uninitialized_memory are both set to True. use this c++ utility to
