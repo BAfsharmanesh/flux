@@ -141,8 +141,8 @@ print(sysconfig.get_config_var('EXT_SUFFIX'));"
 endif()
 
 # force use sm90a for cutlass
-string(REGEX REPLACE "sm_90" "sm_90a" CMAKE_CUDA_FLAGS ${CMAKE_CUDA_FLAGS})
-string(REGEX REPLACE "compute_90" "compute_90a" CMAKE_CUDA_FLAGS ${CMAKE_CUDA_FLAGS})
+# string(REGEX REPLACE "sm_90" "sm_90a" CMAKE_CUDA_FLAGS ${CMAKE_CUDA_FLAGS})
+# string(REGEX REPLACE "compute_90" "compute_90a" CMAKE_CUDA_FLAGS ${CMAKE_CUDA_FLAGS})
 
 set(COMMON_HEADER_DIRS
   ${PROJECT_SOURCE_DIR}/include

@@ -1,5 +1,9 @@
 .vscode
 
+logs.log
+*.log
+*.vscode
+
 # PyCache files
 build/
 .cache/
